@@ -1,0 +1,13 @@
+.*
+!.editorconfig
+!.gitignore
+!.github
+!.nvmrc
+
+*.log
+*.tgz
+*.bak
+
+node_modules/
+
+package-lock.json
