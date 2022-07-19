@@ -58,7 +58,7 @@ program
       input: glob.sync(`${moduleDir}/*/${testEntry}`).map(v => `import './${v}'`).join('\n')
     })
 
-    process.exitCode = result.status
+    process.exitCode = result.status ?? undefined
   })
 
 program
