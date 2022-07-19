@@ -77,22 +77,18 @@ program
       return isNetworkModule || isDifferentModule
     }
 
-    try {
-      for (const input of glob.sync(`${moduleDir}/*/${moduleEntry}`)) {
-        const bundle = await rollup({ external, input })
+    for (const input of glob.sync(`${moduleDir}/*/${moduleEntry}`)) {
+      const bundle = await rollup({ external, input })
 
-        await bundle.write({
-          file: resolve(buildDir, input),
-          format: 'esm',
-          sourcemap: true,
-          plugins: [terser()],
-          sourcemapPathTransform (relativeSourcePath, sourcemapPath) {
-            return relative(resolve(buildDir), resolve(sourcemapPath, relativeSourcePath))
-          }
-        })
-      }
-    } catch (e) {
-      process.exitCode = 1
+      await bundle.write({
+        file: resolve(buildDir, input),
+        format: 'esm',
+        sourcemap: true,
+        plugins: [terser()],
+        sourcemapPathTransform (relativeSourcePath, sourcemapPath) {
+          return relative(resolve(buildDir), resolve(sourcemapPath, relativeSourcePath))
+        }
+      })
     }
   })
 
